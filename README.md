@@ -1,5 +1,6 @@
-# finalproject
+# final project PBI Rakamin - Frontend Engineer x Core Inisiative November 2023
 
+Tools Menggunakan VueJs versi 2
 ## Project setup
 ```
 npm install
@@ -19,6 +20,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
