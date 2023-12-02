@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,700&family=Quicksand:wght@400;700&display=swap');
 * {
   margin: 0;
   box-sizing: border-box;
@@ -89,7 +89,6 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 14px;
-  /* font-size: 16px; */
   color: var(--gray);
   padding-bottom: 16px;
   border-bottom: 1px solid var(--light-gray);
@@ -121,27 +120,27 @@
   font-size: 20px;
   color: var(--black);
   overflow: hidden;
-  text-overflow: ellipsis; /* Menambahkan titik-titik (...) jika teks terpotong */
+  text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 5; /* Menentukan jumlah baris yang ingin ditampilkan */
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
-  transition: -webkit-line-clamp 0.5s; /* Efek transisi saat nilai line-clamp berubah */
+  transition: -webkit-line-clamp 0.5s;
 }
 
 .product-details .description:hover {
-  -webkit-line-clamp: unset; /* Menghapus batasan line-clamp saat dihover */
+  -webkit-line-clamp: unset;
 }
 
 .product-details .description::after {
-  content: ""; /* Menambahkan pseudo-element */
+  content: '';
   display: block;
-  height: 0; /* Menyembunyikan pseudo-element saat tidak dihover */
+  height: 0;
   visibility: hidden;
-  transition: height 0.5s; /* Efek transisi saat tinggi pseudo-element berubah */
+  transition: height 0.5s;
 }
 
 .product-details .description:hover::after {
-  height: auto; /* Munculkan pseudo-element saat dihover */
+  height: auto;
   visibility: visible;
 }
 
@@ -182,7 +181,6 @@
   border-radius: 5px;
 }
 
-/* general */
 .button-container {
   margin-top: 16px;
   width: 100%;
@@ -232,7 +230,7 @@
 
 .bg-pink-dark,
 .rating-circles > .bg-pink-dark {
-  background-color: var(--pink-dark); 
+  background-color: var(--pink-dark);
 }
 
 .border-navy {

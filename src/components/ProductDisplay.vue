@@ -20,11 +20,7 @@
           <div class="product-details">
             <p>This product is unavailable to show</p>
             <div class="button-container">
-              <button
-                type="button"
-                @click="getSingleProduct()"
-                class="btn-next"
-              >
+              <button type="button" @click="getSingleProduct()" class="btn-next">
                 Next Product
               </button>
             </div>
@@ -44,11 +40,7 @@
                 <div class="product-rating">
                   <span>{{ product.data.rating.rate }}/5</span>
                   <div class="rating-circles">
-                    <span
-                      v-for="circle in 5"
-                      :key="circle"
-                      :class="getRatingCircleClasses(circle)"
-                    ></span>
+                    <span v-for="circle in 5" :key="circle" :class="getRatingCircleClasses(circle)"></span>
                   </div>
                 </div>
               </div>
@@ -64,11 +56,7 @@
                 <button type="button" :class="getBuyButtonClasses()">
                   Buy Now
                 </button>
-                <button
-                  type="button"
-                  @click="getSingleProduct()"
-                  :class="getNextButtonClasses()"
-                >
+                <button type="button" @click="getSingleProduct()" :class="getNextButtonClasses()">
                   Next Product
                 </button>
               </div>
@@ -89,10 +77,14 @@ export default {
       id: 0,
       isProductAvailable: false,
       product: {},
+      categoryConstants: {
+        MENS_CLOTHING: "men's clothing",
+        WOMENS_CLOTHING: "women's clothing",
+      },
     };
   },
   methods: {
-    async dataAPI() {
+    async getProductFromAPI() {
       const response = await fetch(
         `https://fakestoreapi.com/products/${this.id}`,
       );
@@ -104,10 +96,10 @@ export default {
 
       this.id == 20 ? (this.id = 1) : this.id++;
 
-      let data = await this.dataAPI();
+      let data = await this.getProductFromAPI();
       if (
-        data.category === "men's clothing" ||
-        data.category === "women's clothing"
+        data.category === this.categoryConstants.MENS_CLOTHING ||
+        data.category === this.categoryConstants.WOMENS_CLOTHING
       ) {
         this.product = { data };
         this.isProductAvailable = true;
@@ -122,51 +114,54 @@ export default {
         'bg-light-gray': !this.isProductAvailable,
         'bg-light-blue font-blue':
           this.isProductAvailable &&
-          this.product.data.category === "men's clothing",
+          this.product.data.category === this.categoryConstants.MENS_CLOTHING,
         'bg-light-pink font-magenta':
           this.isProductAvailable &&
-          this.product.data.category !== "men's clothing",
+          this.product.data.category === this.categoryConstants.WOMENS_CLOTHING,
       };
     },
     getTitleClasses() {
       return {
-        'font-navy title': this.product.data.category === "men's clothing",
-        'font-pink-dark title': this.product.data.category !== "men's clothing",
+        'font-navy title': this.product.data.category === this.categoryConstants.MENS_CLOTHING,
+        'font-pink-dark title': this.product.data.category === this.categoryConstants.WOMENS_CLOTHING,
       };
     },
     getRatingCircleClasses(circle) {
       return {
         circle: true,
         'bg-navy':
-          this.product.data.category === "men's clothing" &&
+          this.product.data.category === this.categoryConstants.MENS_CLOTHING &&
           circle <= Math.round(this.product.data.rating.rate),
         'bg-pink-dark':
-          this.product.data.category !== "men's clothing" &&
+          this.product.data.category === this.categoryConstants.WOMENS_CLOTHING &&
           circle <= Math.round(this.product.data.rating.rate),
       };
     },
     getPriceClasses() {
       return {
-        'font-navy': this.product.data.category === "men's clothing",
-        'font-pink-dark': this.product.data.category !== "men's clothing",
+        'font-navy': this.product.data.category === this.categoryConstants.MENS_CLOTHING,
+        'font-pink-dark': this.product.data.category === this.categoryConstants.WOMENS_CLOTHING,
         price: true,
       };
     },
     getBuyButtonClasses() {
       return {
-        'bg-navy': this.product.data.category === "men's clothing",
-        'bg-pink-dark': this.product.data.category !== "men's clothing",
+        'bg-navy': this.product.data.category === this.categoryConstants.MENS_CLOTHING,
+        'bg-pink-dark': this.product.data.category === this.categoryConstants.WOMENS_CLOTHING,
         'btn-buy': true,
       };
     },
     getNextButtonClasses() {
       return {
         'border-btn-navy font-navy':
-          this.product.data.category === "men's clothing",
+          this.product.data.category === this.categoryConstants.MENS_CLOTHING,
         'border-btn-pink-dark font-pink-dark':
-          this.product.data.category !== "men's clothing",
+          this.product.data.category === this.categoryConstants.WOMENS_CLOTHING,
         'btn-next': true,
       };
+    },
+    showAlert() {
+      alert('Tombol diklik!');
     },
   },
   mounted() {
