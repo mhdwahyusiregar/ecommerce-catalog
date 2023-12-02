@@ -1,70 +1,69 @@
 <template>
-  <div class="container">
-    <div v-if="isLoading" class="card">
+  <div v-if="isLoading" class="container">
+    <div class="card">
       <div class="product-container">
         <div class="loader-container">
           <div class="loader"></div>
         </div>
       </div>
     </div>
-
-    <div v-else class="container" :class="getContainerClasses()">
-      <div class="overlay">
-        <img src="../assets/bg-shape.svg" alt="background overlay" />
-      </div>
-      <section class="card">
-        <div v-if="!isProductAvailable" class="product-unavailable">
-          <div class="overlay">
-            <img src="../assets/bg-sad.svg" alt="unavailable product" />
+  </div>
+  <div v-else class="container" :class="getContainerClasses()">
+    <div class="overlay">
+      <img src="../assets/bg-shape.svg" alt="background overlay" />
+    </div>
+    <section class="card">
+      <div v-if="!isProductAvailable" class="product-unavailable">
+        <div class="overlay">
+          <img src="../assets/bg-sad.svg" alt="unavailable product" />
+        </div>
+        <div class="product-details">
+          <p>This product is unavailable to show</p>
+          <div class="button-container">
+            <button type="button" @click="getSingleProduct()" class="btn-next">
+              Next Product
+            </button>
           </div>
-          <div class="product-details">
-            <p>This product is unavailable to show</p>
+        </div>
+      </div>
+      <div v-else class="product-container">
+        <div class="product-image">
+          <img :src="product.data.image" alt="product ecommerce" />
+        </div>
+        <div class="product-details">
+          <div class="product-title">
+            <h3 :class="getTitleClasses()">
+              {{ product.data.title }}
+            </h3>
+            <div class="product-sub-title">
+              <span>{{ product.data.category }}</span>
+              <div class="product-rating">
+                <span>{{ product.data.rating.rate }}/5</span>
+                <div class="rating-circles">
+                  <span v-for="circle in 5" :key="circle" :class="getRatingCircleClasses(circle)"></span>
+                </div>
+              </div>
+            </div>
+            <div class="description">
+              <p>{{ product.data.description }}</p>
+            </div>
+          </div>
+          <div class="price-color">
+            <span :class="getPriceClasses()">
+              ${{ product.data.price }}
+            </span>
             <div class="button-container">
-              <button type="button" @click="getSingleProduct()" class="btn-next">
+              <button type="button" :class="getBuyButtonClasses()">
+                Buy Now
+              </button>
+              <button type="button" @click="getSingleProduct()" :class="getNextButtonClasses()">
                 Next Product
               </button>
             </div>
           </div>
         </div>
-        <div v-else class="product-container">
-          <div class="product-image">
-            <img :src="product.data.image" alt="product ecommerce" />
-          </div>
-          <div class="product-details">
-            <div class="product-title">
-              <h3 :class="getTitleClasses()">
-                {{ product.data.title }}
-              </h3>
-              <div class="product-sub-title">
-                <span>{{ product.data.category }}</span>
-                <div class="product-rating">
-                  <span>{{ product.data.rating.rate }}/5</span>
-                  <div class="rating-circles">
-                    <span v-for="circle in 5" :key="circle" :class="getRatingCircleClasses(circle)"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="description">
-                <p>{{ product.data.description }}</p>
-              </div>
-            </div>
-            <div class="price-color">
-              <span :class="getPriceClasses()">
-                ${{ product.data.price }}
-              </span>
-              <div class="button-container">
-                <button type="button" :class="getBuyButtonClasses()">
-                  Buy Now
-                </button>
-                <button type="button" @click="getSingleProduct()" :class="getNextButtonClasses()">
-                  Next Product
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -159,9 +158,6 @@ export default {
           this.product.data.category === this.categoryConstants.WOMENS_CLOTHING,
         'btn-next': true,
       };
-    },
-    showAlert() {
-      alert('Tombol diklik!');
     },
   },
   mounted() {
